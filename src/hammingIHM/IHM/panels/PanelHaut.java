@@ -28,6 +28,9 @@ public class PanelHaut extends JPanel
      */
     JPanel pnlDroite;
 
+    JRadioButton calcul;
+    JRadioButton verification;
+
     /**
      * Instantiates a new Panel haut.
      *
@@ -48,6 +51,15 @@ public class PanelHaut extends JPanel
             }
         };
         this.txtfBinaire.setColumns(25);
+
+        this.calcul       = new JRadioButton("calcul");
+        this.verification = new JRadioButton("verif");
+        ButtonGroup group = new ButtonGroup();
+        group.add(this.calcul);
+        group.add(this.verification);
+
+        this.calcul.setSelected(true);
+
         this.txtfBinaire.addKeyListener(new KeyAdapter()
         {
             @Override
@@ -93,8 +105,15 @@ public class PanelHaut extends JPanel
             // activer script
         });
 
+        JPanel panelRadioBtn = new JPanel();
+        panelRadioBtn.setLayout(new BoxLayout(panelRadioBtn, BoxLayout.Y_AXIS));
+
+        panelRadioBtn.add(this.calcul);
+        panelRadioBtn.add(this.verification);
+
         this.add(this.txtfBinaire, BorderLayout.CENTER);
         this.add(pnlDroite, BorderLayout.EAST);
+        this.pnlDroite.add(panelRadioBtn, BorderLayout.CENTER);
         this.pnlDroite.add(this.btnValider, BorderLayout.EAST);
     }
 
