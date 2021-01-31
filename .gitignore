@@ -1,0 +1,14 @@
+.git
+/javadoc/
+
+# pour intelliJ
+/.idea/
+.idea
+*.iml
+
+out
+
+# pour eclipse
+/bin/
+.classpath
+.project
