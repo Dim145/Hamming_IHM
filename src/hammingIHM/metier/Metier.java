@@ -133,26 +133,30 @@ public class Metier
 
         boolean[] tabBitsCorrecteur = new boolean[nbBitsDebug]; // true = 0, false = 1
         for (int i = 0; i < nbBitsDebug; i++)
-            tabBitsCorrecteur[i] = false;
+            tabBitsCorrecteur[i] = true;
 
         StringBuilder tmp = new StringBuilder(bits);
         for (int i = 0; i < nbBitsDebug; i++)
         {
-            tmp.delete(0, tmp.length());
-            tmp.append(bits);
+            boolean lastValueIsTested = false;
 
             do
             {
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
                 int pos = Integer.parseInt(tmp.toString(), 2);
 
+                if (!tmp.toString().contains("0") ) lastValueIsTested = true;
                 if (code.charAt(code.length() - pos) != '0') tabBitsCorrecteur[i] = !tabBitsCorrecteur[i];
 
+                String s = tmp.toString();
                 tmp.delete(0, tmp.length());
-                tmp.append(Metier.valBitsSuivant(tmp.toString()));
-            } while (tmp.toString().contains("0"));
+                tmp.append(Metier.valBitsSuivant(s));
+            } while (tmp.toString().contains("0") || !lastValueIsTested);
 
             if (!tabBitsCorrecteur[i]) return false;
+
+            tmp.delete(0, tmp.length());
+            tmp.append(bits);
         }
 
         /*for (boolean bit : tabBitsCorrecteur)
@@ -172,26 +176,20 @@ public class Metier
         boolean retenue;
         int cpt = toString.length() - 1;
 
-        if (builder.charAt(cpt) == '0')
-        {
-            builder.replace(cpt, cpt + 1, "1");
-        }
-        else
-        {
-            builder.replace(cpt, cpt-- + 1, "0");
-            retenue = true;
 
-            while (retenue)
+        retenue = builder.charAt(cpt) == '1';
+        builder.replace(cpt, cpt-- + 1, retenue ? "0" : "1");
+
+        while (retenue)
+        {
+            if (builder.charAt(cpt) == '0')
             {
-                if (builder.charAt(cpt) == '0')
-                {
-                    builder.replace(cpt, cpt-- + 1, "1");
-                    retenue = false;
-                }
-                else
-                {
-                    builder.replace(cpt, cpt-- + 1, "0");
-                }
+                builder.replace(cpt, cpt-- + 1, "1");
+                retenue = false;
+            }
+            else
+            {
+                builder.replace(cpt, cpt-- + 1, "0");
             }
         }
 
@@ -204,6 +202,7 @@ public class Metier
         System.out.println(m.correctionPreEmission("1010"));
         System.out.println(m.correctionPreEmission("1011"));
         System.out.println(m.correctionPreEmission("10110111010"));
+        System.out.println(m.isCodeCorrect("1010010", false)); // doit etre vrai
         System.out.println(m.isCodeCorrect("1101101", false)); // doit etre faux
         System.out.println(m.isCodeCorrect("101101111011011", false)); // doit etre vrai
     }
