@@ -1,7 +1,7 @@
-package hammingIHM.IHM;
+package hammingIHM.ihm;
 
 import hammingIHM.Controleur;
-import hammingIHM.IHM.panels.PanelHaut;
+import hammingIHM.ihm.panels.PanelHaut;
 
 import javax.swing.*;
 import java.awt.*;

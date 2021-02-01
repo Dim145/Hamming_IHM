@@ -1,6 +1,6 @@
-package hammingIHM.IHM.panels;
+package hammingIHM.ihm.panels;
 
-import hammingIHM.IHM.FrameP;
+import hammingIHM.ihm.FrameP;
 
 import javax.swing.*;
 import java.awt.*;

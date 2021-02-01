@@ -1,7 +1,7 @@
 package hammingIHM;
 
-import hammingIHM.IHM.FrameP;
-import hammingIHM.Metier.Metier;
+import hammingIHM.ihm.FrameP;
+import hammingIHM.metier.Metier;
 
 public class Controleur
 {

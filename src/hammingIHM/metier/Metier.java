@@ -1,4 +1,4 @@
-package hammingIHM.Metier;
+package hammingIHM.metier;
 
 public class Metier
 {
