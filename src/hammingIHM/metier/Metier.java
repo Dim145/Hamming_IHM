@@ -121,8 +121,12 @@ public class Metier
         return sRet;
     }
 
-    public boolean isCodeCorrect(String code, boolean presenterEtapes)
+    public int isCodeCorrect(String code, boolean presenterEtapes)
     {
+        int indexOf2ptPoint = code.indexOf(":");
+        if( indexOf2ptPoint > -1 )
+            code = code.substring(indexOf2ptPoint+1);
+
         int nbBitsDebug = 0;
 
         for (int i = 0; Math.pow(2, i) <= code.length(); i++)
@@ -153,10 +157,15 @@ public class Metier
                 tmp.append(Metier.valBitsSuivant(s));
             } while (tmp.toString().contains("0") || !lastValueIsTested);
 
-            if (!tabBitsCorrecteur[i]) return false;
-
             tmp.delete(0, tmp.length());
             tmp.append(bits);
+
+            if (!tabBitsCorrecteur[i])
+            {
+                tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
+
+                return Integer.parseInt(tmp.toString(), 2);
+            }
         }
 
         /*for (boolean bit : tabBitsCorrecteur)
@@ -164,7 +173,7 @@ public class Metier
         // pas opti
         */
 
-        return true;
+        return -1;
     }
 
     private static String valBitsSuivant(String toString)
