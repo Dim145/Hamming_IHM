@@ -129,7 +129,7 @@ public class Metier
 
         int nbBitsDebug = 0;
 
-        for (int i = 0; Math.pow(2, i) <= code.length(); i++)
+        for (int i = 0; Math.pow(2, i) < code.length(); i++)
             nbBitsDebug++;
 
         String bits = String.format("%" + nbBitsDebug + "s", "").replaceAll(" ", "0");
@@ -148,6 +148,10 @@ public class Metier
             {
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
                 int pos = Integer.parseInt(tmp.toString(), 2);
+
+                if( pos > code.length() ) break; // le code s'arrete avant d'avoir finit le tour.
+                // 3 bits de debug = 111 au max. = 7 qui peut etre hors d'une chaine de 10111 (taille 5).
+                // Le code n'est pas faux, mais doit s'arreter plus
 
                 if (!tmp.toString().contains("0") ) lastValueIsTested = true;
                 if (code.charAt(code.length() - pos) != '0') tabBitsCorrecteur[i] = !tabBitsCorrecteur[i];
