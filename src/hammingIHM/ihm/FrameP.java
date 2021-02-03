@@ -26,7 +26,7 @@ public class FrameP extends JFrame
 
         // Code de fin du constructeur
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(500, 500);
+        this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
