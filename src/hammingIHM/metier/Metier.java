@@ -15,11 +15,11 @@ public class Metier
         for (int i = 0; Math.pow(2, i) <= code.length(); i++)
             nbBitsDebug++;
 
-        //System.out.println(nbBitsDebug);
+        System.out.println(nbBitsDebug);
 
-        //On allonge la chaine pour qu'elle fasse la taille de 2^nbBitsDebug-1-nbBitsDebug
+        //On allonge la chaine pour qu'elle fasse la taille de 2^nbBitsDebug-1-nbBitsDebug et on enleve les espaces
         if (code.length() != Math.pow(2, nbBitsDebug) - 1 - nbBitsDebug)
-            code = String.format("%" + (int) (Math.pow(2, nbBitsDebug) - 1 - nbBitsDebug) + "s", code);
+            code = String.format("%" + (int) (Math.pow(2, nbBitsDebug) - 1 - nbBitsDebug) + "s", code).replace(" ", "");
 
         StringBuffer code2 = new StringBuffer(code);
 

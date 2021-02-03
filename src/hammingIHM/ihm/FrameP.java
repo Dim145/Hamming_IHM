@@ -2,6 +2,7 @@ package hammingIHM.ihm;
 
 import hammingIHM.Controleur;
 import hammingIHM.ihm.panels.PanelHaut;
+import hammingIHM.ihm.panels.PanelMilieu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ public class FrameP extends JFrame
     private final Controleur ctrl;
 
     private final PanelHaut pnlHaut;
+    private final PanelMilieu pnlMilieu;
 
     public FrameP(Controleur ctrl )
     {
@@ -20,9 +22,11 @@ public class FrameP extends JFrame
 
         // créations
         this.pnlHaut = new PanelHaut(this);
+        this.pnlMilieu = new PanelMilieu(this);
 
         // ajouts
         this.add(this.pnlHaut, BorderLayout.NORTH);
+        this.add(this.pnlMilieu, BorderLayout.CENTER);
 
         // Code de fin du constructeur
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
