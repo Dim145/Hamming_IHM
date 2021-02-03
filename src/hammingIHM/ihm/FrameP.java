@@ -30,4 +30,19 @@ public class FrameP extends JFrame
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+
+    public int isCodeCorrect(String code, boolean afficher)
+    {
+        return this.ctrl.isCodeCorrect(code, afficher);
+    }
+
+    public int isCodeCorrect( String code )
+    {
+        return this.isCodeCorrect(code, false);
+    }
+
+    public String calculeCodeEmission( String code )
+    {
+        return this.ctrl.calculeCodeEmission(code);
+    }
 }

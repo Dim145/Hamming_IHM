@@ -14,6 +14,21 @@ public class Controleur
         this.metier = new Metier();
     }
 
+    public int isCodeCorrect(String code, boolean afficher)
+    {
+        return this.metier.isCodeCorrect(code, afficher);
+    }
+
+    public int isCodeCorrect( String code )
+    {
+        return this.isCodeCorrect(code, false);
+    }
+
+    public String calculeCodeEmission( String code )
+    {
+        return this.metier.correctionPreEmission(code);
+    }
+
     public static void main(String[] args)
     {
         new Controleur();
