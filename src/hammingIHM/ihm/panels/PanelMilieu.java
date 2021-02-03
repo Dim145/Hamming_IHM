@@ -22,9 +22,13 @@ public class PanelMilieu extends JPanel
 		this.frame       = frame;
 		this.lblResultat = new JLabel();
 		this.lblDetails  = new JLabel();
+		
+		JPanel pnlBas =	new JPanel();
+		pnlBas.add(lblResultat);
+		pnlBas.setBackground(Color.BLACK);
 
 		this.add(lblDetails, BorderLayout.CENTER);
-		this.add(lblResultat, BorderLayout.SOUTH);
+		this.add(pnlBas, BorderLayout.SOUTH);
 
 		this.lblDetails.setVisible(false);
 		this.lblResultat.setHorizontalAlignment(JLabel.CENTER);
@@ -46,7 +50,7 @@ public class PanelMilieu extends JPanel
 	public void setLblResultatCorriger( String codeCorriger )
 	{
 		this.lblDetails.setVisible(false);
-		this.lblResultat.setForeground(Color.BLACK);
+		this.lblResultat.setForeground(Color.WHITE);
 		this.lblResultat.setText("Le code a émettre serais: " + codeCorriger);
 	}
 
