@@ -44,7 +44,7 @@ public class Metier
         sRet = nbBitsDebug + ":";
 
 
-        //stockera chaque chaine lié a chaque bit de correction
+        //stockera chaque chaine liÃ© a chaque bit de correction
         String[] tabBits = new String[nbBitsDebug];
 
 
@@ -140,7 +140,7 @@ public class Metier
         for (int i = 0; Math.pow(2, i) < code.length(); i++)
             nbBitsDebug++;
 
-        details.append(nbBitsDebug).append(" bits de controle trouvés.\n");
+        details.append(nbBitsDebug).append(" bits de controle trouvÃ©s.\n");
 
         String bits = String.format("%" + nbBitsDebug + "s", "").replaceAll(" ", "0");
         // 0000 par exemple
@@ -155,7 +155,7 @@ public class Metier
         {
             boolean lastValueIsTested = false;
 
-            details.append("pour le bis de controle n°").append(i).append(", les cases a vérifier sont: |b|");
+            details.append("pour le bis de controle nÂ°").append(i).append(", les cases a vÃ©rifier sont: |b|");
             do
             {
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
@@ -166,7 +166,7 @@ public class Metier
                 // 3 bits de debug = 111 au max. = 7 qui peut etre hors d'une chaine de 10111 (taille 5).
                 // Le code n'est pas faux, mais doit s'arreter plus
 
-                details.append(pos).append(" ");
+                details.append(String.format("%02d", pos)).append(" ");
 
                 if (!tmp.toString().contains("0") ) lastValueIsTested = true;
                 if (code.charAt(code.length() - pos) != '0') tabBitsCorrecteur[i] = !tabBitsCorrecteur[i];
@@ -183,17 +183,33 @@ public class Metier
 
             if (!tabBitsCorrecteur[i])
             {
-                details.append("|r|Une erreurs a été trouvée, fin du script");
+                details.append("|r|Une erreurs a Ã©tÃ© trouvÃ©e, fin du script");
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
 
-                this.ctrl.setLblDetails( presenterEtapes ? details.toString() : null);
+                try
+                {
+                    this.ctrl.setLblDetails(presenterEtapes ? details.toString() : null);
+                }
+                catch ( NullPointerException ignored )
+                {
+                    // pour eviter une erreur lors ce qu'on lance le main du Metier pour debug
+                }
 
                 return Integer.parseInt(tmp.toString(), 2);
             }
         }
 
-        details.append("|g|Pas d'erreurs trouvées, fin du script");
-        this.ctrl.setLblDetails(presenterEtapes ? details.toString() : null);
+        details.append("|g|Pas d'erreurs trouvÃ©es, fin du script");
+
+        try
+        {
+            this.ctrl.setLblDetails(presenterEtapes ? details.toString() : null);
+        }
+        catch ( NullPointerException ignored )
+        {
+            // pour eviter une erreur lors ce qu'on lance le main du Metier pour debug
+        }
+
         /*for (boolean bit : tabBitsCorrecteur)
             if( !bit ) return false;
         // pas opti
@@ -237,6 +253,7 @@ public class Metier
         System.out.println(m.correctionPreEmission("1010"));
         System.out.println(m.correctionPreEmission("1011"));
         System.out.println(m.correctionPreEmission("10110111010"));
+
         System.out.println(m.isCodeCorrect("1010010", false)); // doit etre vrai
         System.out.println(m.isCodeCorrect("1101101", false)); // doit etre faux
         System.out.println(m.isCodeCorrect("101101111011011", false)); // doit etre vrai
