@@ -69,7 +69,7 @@ public class PanelHaut extends JPanel
 
                 if( key == KeyEvent.VK_ENTER)
                 {
-                    // = activer script
+                    PanelHaut.this.executerCode();
 
                     e.consume();
                     return;
@@ -77,13 +77,6 @@ public class PanelHaut extends JPanel
 
                 if (key != '0' && key != '1')
                 {
-                    String txt = PanelHaut.this.txtfBinaire.getText();
-
-                    if( !txt.contains(String.valueOf('-')) )
-                    {
-                        return; // return sans consume n'annule pas l'evenement
-                    }
-
                     try
                     {
                         if( key != KeyEvent.VK_BACK_SPACE )
@@ -100,10 +93,7 @@ public class PanelHaut extends JPanel
         });
 
         this.btnValider = new JButton("GO");
-        this.btnValider.addActionListener(e ->
-        {
-            // activer script
-        });
+        this.btnValider.addActionListener(e -> this.executerCode());
 
         JPanel panelRadioBtn = new JPanel();
         panelRadioBtn.setLayout(new BoxLayout(panelRadioBtn, BoxLayout.Y_AXIS));
@@ -115,6 +105,18 @@ public class PanelHaut extends JPanel
         this.add(pnlDroite, BorderLayout.EAST);
         this.pnlDroite.add(panelRadioBtn, BorderLayout.CENTER);
         this.pnlDroite.add(this.btnValider, BorderLayout.EAST);
+    }
+
+    private void executerCode()
+    {
+        if( this.calcul.isSelected() )
+        {
+            String codeCorriger = this.frame.calculeCodeEmission(this.txtfBinaire.getText());
+        }
+        else if( this.verification.isSelected() )
+        {
+            int erreur = this.frame.isCodeCorrect(this.txtfBinaire.getText());
+        }
     }
 
     /**
