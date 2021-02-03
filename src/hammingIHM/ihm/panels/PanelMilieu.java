@@ -11,7 +11,6 @@ import hammingIHM.ihm.FrameP;
 
 public class PanelMilieu extends JPanel
 {
-	private JCheckBox chkbxChoix;
 	private JLabel    lblResultat;
 	private JLabel    lblDetails;
 	private FrameP    frame;
@@ -23,14 +22,14 @@ public class PanelMilieu extends JPanel
 		JPanel pnlCheck  = new JPanel(new GridLayout(2,1));
 		
 		this.frame       = frame;
-		this.chkbxChoix  = new JCheckBox("Détail");
 		this.lblResultat = new JLabel();
 		this.lblDetails  = new JLabel();
 		
-		pnlCheck.add(chkbxChoix);
 		pnlCheck.add(lblResultat);
 		this.add(pnlCheck, BorderLayout.NORTH);
 		this.add(lblResultat, BorderLayout.CENTER);
 		
 	}
+	
+	
 }
