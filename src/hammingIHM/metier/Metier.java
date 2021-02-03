@@ -155,7 +155,7 @@ public class Metier
         {
             boolean lastValueIsTested = false;
 
-            details.append("pour le bis de controle n°").append(i).append(", les cases a vérifier sont: |b|");
+            details.append("pour le bis de controle n°").append(i+1).append(", les cases a vérifier sont: |b|");
             do
             {
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");

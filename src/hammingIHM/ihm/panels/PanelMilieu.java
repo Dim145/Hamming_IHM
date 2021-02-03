@@ -45,6 +45,7 @@ public class PanelMilieu extends JPanel
 
 	public void setLblResultatCorriger( String codeCorriger )
 	{
+		this.lblDetails.setVisible(false);
 		this.lblResultat.setForeground(Color.BLACK);
 		this.lblResultat.setText("Le code a émettre serais: " + codeCorriger);
 	}
@@ -55,6 +56,10 @@ public class PanelMilieu extends JPanel
 		{
 			this.lblDetails.setVisible(false);
 			return;
+		}
+		else
+		{
+			this.lblDetails.setVisible(true);
 		}
 
 		StringBuilder html = new StringBuilder("<html><body>");
