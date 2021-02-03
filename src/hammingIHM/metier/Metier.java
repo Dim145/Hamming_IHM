@@ -206,5 +206,8 @@ public class Metier
         System.out.println(m.correctionPreEmission("10110111010"));
         System.out.println(m.isCodeCorrect("1101101", false)); // doit etre faux
         System.out.println(m.isCodeCorrect("101101111011011", false)); // doit etre vrai
+        System.out.println(m.isCodeCorrect(m.correctionPreEmission("1010"), false)); // doit etre vrai
+        System.out.println(m.isCodeCorrect(m.correctionPreEmission("1011"), false)); // doit etre faux
+        System.out.println(m.isCodeCorrect(m.correctionPreEmission("10110111010"), false)); // doit etre vrai
     }
 }
