@@ -1,7 +1,6 @@
 package hammingIHM.ihm.panels;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -11,6 +10,7 @@ import hammingIHM.ihm.FrameP;
 
 public class PanelMilieu extends JPanel
 {
+	private JCheckBox chkbxChoix;
 	private JLabel    lblResultat;
 	private JLabel    lblDetails;
 	private FrameP    frame;
@@ -18,18 +18,46 @@ public class PanelMilieu extends JPanel
 	public PanelMilieu(FrameP frame)
 	{
 		this.setLayout(new BorderLayout());
-		
-		JPanel pnlCheck  = new JPanel(new GridLayout(2,1));
-		
+
 		this.frame       = frame;
 		this.lblResultat = new JLabel();
 		this.lblDetails  = new JLabel();
-		
-		pnlCheck.add(lblResultat);
-		this.add(pnlCheck, BorderLayout.NORTH);
-		this.add(lblResultat, BorderLayout.CENTER);
-		
+
+		this.add(lblDetails, BorderLayout.CENTER);
+		this.add(lblResultat, BorderLayout.SOUTH);
+
+		this.lblDetails.setVisible(false);
+		this.lblResultat.setHorizontalAlignment(JLabel.CENTER);
 	}
-	
-	
+
+	public void setResulultatVerification( String code, int posErreur )
+	{
+		String res = "le code \"" + code + "\" ";
+
+		if( posErreur == -1 )
+			res += "ne contient pas d'erreurs";
+		else
+			res += "contient une erreur a la position " + posErreur;
+
+		this.lblResultat.setForeground( posErreur == -1 ? Color.GREEN : Color.RED);
+		this.lblResultat.setText(res);
+	}
+
+	public void setLblResultatCorriger( String codeCorriger )
+	{
+		this.lblResultat.setForeground(Color.BLACK);
+		this.lblResultat.setText("Le code a émettre serais: " + codeCorriger);
+	}
+
+	public void setLblDetails( String details )
+	{
+		if( details == null || details.isEmpty() )
+		{
+			this.lblDetails.setVisible(false);
+			return;
+		}
+
+		this.lblDetails.setText(details);
+		this.lblDetails.setVisible(true);
+	}
 }

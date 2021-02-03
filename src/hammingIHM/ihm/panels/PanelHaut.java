@@ -28,7 +28,7 @@ public class PanelHaut extends JPanel
 	{
 		this.setLayout(new BorderLayout());
 		this.frame     = frame;
-		
+
 		this.pnlGauche = new JPanel(new GridLayout(2,1));
 
 		this.txtfBinaire = new JTextField()
@@ -43,7 +43,7 @@ public class PanelHaut extends JPanel
 
 		this.calcul       = new JRadioButton("calcul");
 		this.verification = new JRadioButton("verif");
-		
+
 		ButtonGroup group = new ButtonGroup();
 		group.add(this.calcul);
 		group.add(this.verification);
@@ -84,40 +84,45 @@ public class PanelHaut extends JPanel
 		this.btnValider = new JButton("GO");
 		this.btnValider.addActionListener(e -> this.executerCode());
 
-		this.chkbxChoix = new JCheckBox("Détail");
-		
-		
-		
+		this.chkbxChoix = new JCheckBox("Dï¿½tail");
+
+
+
 		this.pnlGauche.add(this.txtfBinaire);
-		
-		
+
+
 
 		JPanel pnlRadioBtn = new JPanel();
 		pnlRadioBtn.setLayout(new BoxLayout(pnlRadioBtn, BoxLayout.X_AXIS));
 
 		pnlRadioBtn.add(this.calcul);
 		pnlRadioBtn.add(this.verification);
-		
+
 		JPanel pnlBasGauche  = new JPanel(new BorderLayout());
 		pnlBasGauche.add(this.chkbxChoix, BorderLayout.WEST);
 		pnlBasGauche.add(pnlRadioBtn, BorderLayout.EAST);
-		
+
 		pnlGauche.add(pnlBasGauche);
 
 		this.add(this.pnlGauche, BorderLayout.CENTER);
 		this.add(this.btnValider, BorderLayout.EAST);
 	}
 
-	private void executerCode()
-	{
-		if (this.calcul.isSelected())
-		{
-			String codeCorriger = this.frame.calculeCodeEmission(this.txtfBinaire.getText());
-		} else if (this.verification.isSelected())
-		{
-			int erreur = this.frame.isCodeCorrect(this.txtfBinaire.getText(), this.chkbxChoix.isSelected());
-		}
-	}
+    private void executerCode()
+    {
+        if( this.calcul.isSelected() )
+        {
+            String codeCorriger = this.frame.calculeCodeEmission(this.txtfBinaire.getText());
+
+            this.frame.setResulultat(codeCorriger, Integer.MIN_VALUE);
+        }
+        else if( this.verification.isSelected() )
+        {
+            int erreur = this.frame.isCodeCorrect(this.txtfBinaire.getText(), this.chkbxChoix.isSelected());
+
+            this.frame.setResulultat(this.retourStringBinaire(), erreur);
+        }
+    }
 
 	/**
 	 * Retour string binaire string.

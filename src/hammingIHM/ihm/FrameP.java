@@ -49,4 +49,21 @@ public class FrameP extends JFrame
     {
         return this.ctrl.calculeCodeEmission(code);
     }
+
+    public void setResulultat( String code, int posErreur )
+    {
+        if( posErreur == Integer.MIN_VALUE )
+            this.pnlMilieu.setLblResultatCorriger(code);
+        else
+            this.pnlMilieu.setResulultatVerification(code, posErreur);
+
+        this.pack();
+    }
+
+    public void setLblDetails( String details )
+    {
+        this.pnlMilieu.setLblDetails(details);
+
+        this.pack();
+    }
 }
