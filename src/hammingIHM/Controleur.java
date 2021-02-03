@@ -11,7 +11,7 @@ public class Controleur
     public Controleur()
     {
         this.ihm = new FrameP(this);
-        this.metier = new Metier();
+        this.metier = new Metier(this);
     }
 
     public int isCodeCorrect(String code, boolean afficher)
@@ -27,6 +27,11 @@ public class Controleur
     public String calculeCodeEmission( String code )
     {
         return this.metier.correctionPreEmission(code);
+    }
+
+    public void setLblDetails( String details )
+    {
+        this.ihm.setLblDetails(details);
     }
 
     public static void main(String[] args)
