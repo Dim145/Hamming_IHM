@@ -63,7 +63,5 @@ public class FrameP extends JFrame
     public void setLblDetails( String details )
     {
         this.pnlMilieu.setLblDetails(details);
-
-        this.pack();
     }
 }

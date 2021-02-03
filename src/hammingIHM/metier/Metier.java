@@ -1,10 +1,14 @@
 package hammingIHM.metier;
 
+import hammingIHM.Controleur;
+
 public class Metier
 {
-    public Metier()
-    {
+    private final Controleur ctrl;
 
+    public Metier(Controleur controleur)
+    {
+        this.ctrl = controleur;
     }
 
     public String correctionPreEmission(String code)
@@ -127,10 +131,16 @@ public class Metier
         if( indexOf2ptPoint > -1 )
             code = code.substring(indexOf2ptPoint+1);
 
+        StringBuilder details = new StringBuilder();
+
         int nbBitsDebug = 0;
+
+        details.append("Recherche du nombres de bits de controle...\n");
 
         for (int i = 0; Math.pow(2, i) < code.length(); i++)
             nbBitsDebug++;
+
+        details.append(nbBitsDebug).append(" bits de controle trouvés.\n");
 
         String bits = String.format("%" + nbBitsDebug + "s", "").replaceAll(" ", "0");
         // 0000 par exemple
@@ -140,18 +150,23 @@ public class Metier
             tabBitsCorrecteur[i] = true;
 
         StringBuilder tmp = new StringBuilder(bits);
+        details.append("Debut de calcule pour chaque bits:\n");
         for (int i = 0; i < nbBitsDebug; i++)
         {
             boolean lastValueIsTested = false;
 
+            details.append("pour le bis de controle n°").append(i).append(", les cases a vérifier sont: |b|");
             do
             {
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
                 int pos = Integer.parseInt(tmp.toString(), 2);
 
+
                 if( pos > code.length() ) break; // le code s'arrete avant d'avoir finit le tour.
                 // 3 bits de debug = 111 au max. = 7 qui peut etre hors d'une chaine de 10111 (taille 5).
                 // Le code n'est pas faux, mais doit s'arreter plus
+
+                details.append(pos).append(" ");
 
                 if (!tmp.toString().contains("0") ) lastValueIsTested = true;
                 if (code.charAt(code.length() - pos) != '0') tabBitsCorrecteur[i] = !tabBitsCorrecteur[i];
@@ -161,17 +176,24 @@ public class Metier
                 tmp.append(Metier.valBitsSuivant(s));
             } while (tmp.toString().contains("0") || !lastValueIsTested);
 
+            details.append("\n");
+
             tmp.delete(0, tmp.length());
             tmp.append(bits);
 
             if (!tabBitsCorrecteur[i])
             {
+                details.append("|r|Une erreurs a été trouvée, fin du script");
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
+
+                this.ctrl.setLblDetails( presenterEtapes ? details.toString() : null);
 
                 return Integer.parseInt(tmp.toString(), 2);
             }
         }
 
+        details.append("|g|Pas d'erreurs trouvées, fin du script");
+        this.ctrl.setLblDetails(presenterEtapes ? details.toString() : null);
         /*for (boolean bit : tabBitsCorrecteur)
             if( !bit ) return false;
         // pas opti
@@ -211,7 +233,7 @@ public class Metier
 
     public static void main(String[] args)
     {
-        Metier m = new Metier();
+        Metier m = new Metier(null);
         System.out.println(m.correctionPreEmission("1010"));
         System.out.println(m.correctionPreEmission("1011"));
         System.out.println(m.correctionPreEmission("10110111010"));

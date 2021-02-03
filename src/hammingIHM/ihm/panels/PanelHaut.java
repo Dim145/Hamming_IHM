@@ -84,12 +84,10 @@ public class PanelHaut extends JPanel
 		this.btnValider = new JButton("GO");
 		this.btnValider.addActionListener(e -> this.executerCode());
 
-		this.chkbxChoix = new JCheckBox("Détail");
-
+		this.chkbxChoix = new JCheckBox("DÃ©tail");
 
 
 		this.pnlGauche.add(this.txtfBinaire);
-
 
 
 		JPanel pnlRadioBtn = new JPanel();
