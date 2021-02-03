@@ -50,7 +50,7 @@ public class FrameP extends JFrame
         return this.ctrl.calculeCodeEmission(code);
     }
 
-    public void setResulultat( String code, int posErreur )
+    public void setResultat( String code, int posErreur )
     {
         if( posErreur == Integer.MIN_VALUE )
             this.pnlMilieu.setLblResultatCorriger(code);

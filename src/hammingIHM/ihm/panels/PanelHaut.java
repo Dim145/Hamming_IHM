@@ -84,7 +84,7 @@ public class PanelHaut extends JPanel
 		this.btnValider = new JButton("GO");
 		this.btnValider.addActionListener(e -> this.executerCode());
 
-		this.chkbxChoix = new JCheckBox("Dï¿½tail");
+		this.chkbxChoix = new JCheckBox("Détail");
 
 
 
@@ -114,13 +114,13 @@ public class PanelHaut extends JPanel
         {
             String codeCorriger = this.frame.calculeCodeEmission(this.txtfBinaire.getText());
 
-            this.frame.setResulultat(codeCorriger, Integer.MIN_VALUE);
+            this.frame.setResultat(codeCorriger, Integer.MIN_VALUE);
         }
         else if( this.verification.isSelected() )
         {
             int erreur = this.frame.isCodeCorrect(this.txtfBinaire.getText(), this.chkbxChoix.isSelected());
 
-            this.frame.setResulultat(this.retourStringBinaire(), erreur);
+            this.frame.setResultat(this.retourStringBinaire(), erreur);
         }
     }
 
