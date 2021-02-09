@@ -13,7 +13,7 @@ public class Metier
 
     public String correctionPreEmission(String code)
     {
-        String sRet;
+        String sRet = "";
 
         int nbBitsDebug = 0;
         for (int i = 0; Math.pow(2, i) <= code.length(); i++)
@@ -40,8 +40,6 @@ public class Metier
         code2 = new StringBuffer(str.reverse().toString());
 
         //System.out.println(code2);
-
-        sRet = nbBitsDebug + ":";
 
 
         //stockera chaque chaine lié a chaque bit de correction
@@ -99,10 +97,10 @@ public class Metier
 
         //System.out.println(Arrays.toString(tabVal));
 
-
         //placement des bits dans la chaine de retour
         for (int k : tabVal)
         {
+        	sRet += k;
             char ch = Character.forDigit(k, 10);
             //System.out.println(ch);
             for (int j = 0; j < str.length(); j++)
@@ -120,7 +118,7 @@ public class Metier
         code2 = new StringBuffer(str.reverse().toString());
         //System.out.println(code2);
 
-        sRet += code2.toString();
+        sRet += ":" + code2.toString();
 
         return sRet;
     }
