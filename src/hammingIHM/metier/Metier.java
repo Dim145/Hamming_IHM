@@ -56,7 +56,7 @@ public class Metier
             boolean toutPris = false;
 
             //lectures des bits pour determiner les bit correcteurs via la methode Grey
-            for (int k = (int) (Math.pow(2, 0) - 1); k < code2.length() && k < code2.length() - Math.pow(2, i); k++)
+            for (int k = 0; k < code2.length() && k < code2.length() - Math.pow(2, i); k++)
             {
                 //System.out.println("\nk : " + k + "   " + nbBitsPris + "/" + nbBitsAPrendre + "  " + toutPris);
                 if (toutPris && nbBitsPris == 0) toutPris = false;
