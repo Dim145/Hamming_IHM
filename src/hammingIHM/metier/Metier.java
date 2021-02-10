@@ -13,7 +13,7 @@ public class Metier
 
     public String correctionPreEmission(String code)
     {
-        String sRet = "";
+        StringBuilder sRet = new StringBuilder();
 
         int nbBitsDebug = 0;
         for (int i = 0; Math.pow(2, i) <= code.length(); i++)
@@ -100,7 +100,7 @@ public class Metier
         //placement des bits dans la chaine de retour
         for (int k : tabVal)
         {
-        	sRet += k;
+        	sRet.append(k);
             char ch = Character.forDigit(k, 10);
             //System.out.println(ch);
             for (int j = 0; j < str.length(); j++)
@@ -118,13 +118,15 @@ public class Metier
         code2 = new StringBuffer(str.reverse().toString());
         //System.out.println(code2);
 
-        sRet += ":" + code2.toString();
+        sRet.append(":").append(code2.toString());
 
-        return sRet;
+        return sRet.toString();
     }
 
     public int isCodeCorrect(String code, boolean presenterEtapes)
     {
+        if( code == null || code.isEmpty() || code.length() == 1 ) return Integer.MAX_VALUE;
+
         int indexOf2ptPoint = code.indexOf(":");
         if( indexOf2ptPoint > -1 )
             code = code.substring(indexOf2ptPoint+1);
@@ -153,7 +155,7 @@ public class Metier
         {
             boolean lastValueIsTested = false;
 
-            details.append("pour le bis de controle n°").append(i+1).append(", les cases a vérifier sont: |b|");
+            details.append("pour le bits de controle n°").append(i+1).append(", les cases a vérifier sont: |b|");
             do
             {
                 tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
@@ -178,26 +180,9 @@ public class Metier
 
             tmp.delete(0, tmp.length());
             tmp.append(bits);
-
-            if (!tabBitsCorrecteur[i])
-            {
-                details.append("|r|Une erreurs a été trouvée, fin du script");
-                tmp.replace(nbBitsDebug - 1 - i, nbBitsDebug - i, "1");
-
-                try
-                {
-                    this.ctrl.setLblDetails(presenterEtapes ? details.toString() : null);
-                }
-                catch ( NullPointerException ignored )
-                {
-                    // pour eviter une erreur lors ce qu'on lance le main du Metier pour debug
-                }
-
-                return Integer.parseInt(tmp.toString(), 2);
-            }
         }
 
-        details.append("|g|Pas d'erreurs trouvées, fin du script");
+        //details.append("|g|Pas d'erreurs trouvées, fin du script");
 
         try
         {
@@ -208,12 +193,10 @@ public class Metier
             // pour eviter une erreur lors ce qu'on lance le main du Metier pour debug
         }
 
-        /*for (boolean bit : tabBitsCorrecteur)
-            if( !bit ) return false;
-        // pas opti
-        */
+        StringBuilder string = new StringBuilder();
+        for (boolean b : tabBitsCorrecteur ) string.append(b ? "0"  : "1");
 
-        return -1;
+        return string.reverse().toString().contains("1") ? Integer.parseInt(string.toString(), 2) : -1;
     }
 
     private static String valBitsSuivant(String toString)

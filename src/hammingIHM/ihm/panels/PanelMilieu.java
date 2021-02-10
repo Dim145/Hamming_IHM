@@ -39,6 +39,9 @@ public class PanelMilieu extends JPanel
 		else
 			res += "contient une erreur a la position " + posErreur;
 
+		if( posErreur == Integer.MAX_VALUE )
+			res = "La chaine de caractère est vide ou n'as qu'un bit de longueur";
+
 		this.lblResultat.setForeground( posErreur == -1 ? Color.GREEN : Color.RED);
 		this.lblResultat.setText(res);
 	}
